@@ -1,0 +1,5 @@
+# build 제외
+dist
+.next
+
+/public
