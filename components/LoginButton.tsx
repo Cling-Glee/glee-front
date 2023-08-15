@@ -5,20 +5,14 @@ import LoginButtonView from './LoginButtonView';
 
 interface LoginButtonProps {
   title: string;
-  key?: string;
-  url?: string;
+  handleClickLoginButton: () => void;
 }
 
-const LoginButton = ({ title, key, url }: LoginButtonProps) => {
-  console.log(key, url);
-  const handleClickLoginButton = () => {};
-
-  return (
-    <LoginButtonView
-      title={title}
-      handleClickLoginButton={handleClickLoginButton}
-    />
-  );
-};
+const LoginButton = ({ title, handleClickLoginButton }: LoginButtonProps) => (
+  <LoginButtonView
+    title={title}
+    handleClickLoginButton={handleClickLoginButton}
+  />
+);
 
 export default LoginButton;
