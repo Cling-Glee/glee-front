@@ -9,7 +9,7 @@ const Login = () => {
   const handleClickTwitterLoginButton = () => {};
   const handleClickInstagramLoginButton = () => {};
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const params = useSearchParams();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center">
       {isLoading && <div className="">loading</div>}
-      <div className="loginBtns flex flex-col">
+      <div className="flex flex-col">
         <LoginButton
           title="카카오"
           handleClickLoginButton={handleClickKakaoLoginButton}

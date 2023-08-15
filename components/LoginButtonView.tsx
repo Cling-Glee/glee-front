@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-
 interface LoginButtonViewProps {
   title: string;
   handleClickLoginButton: () => void;

@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import LoginButtonView from './LoginButtonView';
 
 interface LoginButtonProps {
