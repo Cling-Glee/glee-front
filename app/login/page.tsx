@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import LoginButton from '@/components/LoginButton';
+import LoginButton from '@/components/login/LoginButton';
 
 const Login = () => {
   const handleClickKakaoLoginButton = () => {};
