@@ -6,7 +6,12 @@ import LoginButton from '@/components/LoginButton';
 
 const Login = () => {
   const handleClickKakaoLoginButton = () => {};
-  const handleClickTwitterLoginButton = () => {};
+  const handleClickTwitterLoginButton = () => {
+    const key = process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID;
+    const redirectUri = 'http://localhost:3000';
+    const authUrl = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${key}&redirect_uri=${redirectUri}/login&scope=tweet.read%20users.read%20offline.access&state=state&code_challenge=challenge&code_challenge_method=plain`;
+    window.location.href = authUrl;
+  };
   const handleClickInstagramLoginButton = () => {};
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
