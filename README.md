@@ -10,6 +10,14 @@ npm run dev
 
 Open http://localhost:3000
 
+Run Storybook:
+
+```
+npm run storybook
+```
+
+Open http://localhost:6006
+
 ## 폴더 구조
 
 ```
