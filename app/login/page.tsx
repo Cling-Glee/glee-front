@@ -5,10 +5,6 @@ import { useSearchParams } from 'next/navigation';
 import LoginButton from '@/components/login/LoginButton';
 
 const Login = () => {
-  const handleClickKakaoLoginButton = () => {};
-  const handleClickTwitterLoginButton = () => {};
-  const handleClickInstagramLoginButton = () => {};
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const params = useSearchParams();
 
@@ -30,6 +26,18 @@ const Login = () => {
       //       }
     }
   }, [params]);
+
+  const handleClickKakaoLoginButton = () => {};
+
+  const handleClickTwitterLoginButton = () => {};
+
+  const handleClickInstagramLoginButton = () => {
+    const key = process.env.NEXT_PUBLIC_INSTAGRAM_API_KEY;
+    const redirectUri = process.env.NEXT_PUBLIC_SOCIAL_LOGIN_REDIRECT_URI;
+    const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${key}&redirect_uri=${redirectUri}&scope=user_profile&response_type=code`;
+
+    window.location.href = authUrl;
+  };
 
   return (
     <div className="flex flex-col items-center">
