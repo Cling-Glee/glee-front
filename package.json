@@ -39,6 +39,7 @@
     "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-plugin-storybook": "^0.6.13",
     "prettier": "^3.0.1",
-    "storybook": "^7.2.3"
+    "storybook": "^7.2.3",
+    "zustand": "^4.4.1"
   }
 }

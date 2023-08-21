@@ -35,6 +35,6 @@ components                       # 컴포넌트 (공통 & 각 페이지별로 �
 └─ ...
 hooks                            # 커스텀 훅
 utils                            # 의존성없이 static한 function
+stores                           # zustand의 store 관리
 
 ```
-
