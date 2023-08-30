@@ -14,6 +14,7 @@ type TStory = StoryObj<typeof QnaCardView>;
 
 const answeredQNA: TQna = {
   id: 1,
+  state: 'answered',
   profileImage: '',
   userName: null,
   date: new Date('2023/8/24'),
@@ -35,6 +36,7 @@ const answeredQNA: TQna = {
 
 const QNA: TQna = {
   id: 1,
+  state: 'new',
   profileImage:
     'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg',
   userName: '익명아님',
@@ -57,15 +59,6 @@ export const QnaCardStory1: TStory = {
   },
   args: {
     qna: answeredQNA,
-    onClickQnaCard: () => {
-      if (answeredQNA.answer) console.log('qnacard clicked');
-    },
-    onClickAnswerButton: () => {
-      console.log('answer button clicked');
-    },
-    onClickRejectButton: () => {
-      console.log('reject button clicked');
-    },
   },
 };
 
@@ -78,14 +71,5 @@ export const QnaCardStory2: TStory = {
   },
   args: {
     qna: QNA,
-    onClickQnaCard: () => {
-      if (QNA.answer) console.log('qnacard clicked');
-    },
-    onClickAnswerButton: () => {
-      console.log('answer button clicked');
-    },
-    onClickRejectButton: () => {
-      console.log('reject button clicked');
-    },
   },
 };

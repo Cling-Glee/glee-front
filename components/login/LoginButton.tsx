@@ -4,13 +4,13 @@ import LoginButtonView from './LoginButtonView';
 
 interface LoginButtonProps {
   title: string;
-  handleClickLoginButton: () => void;
+  onClickLoginButton: () => void;
 }
 
-const LoginButton = ({ title, handleClickLoginButton }: LoginButtonProps) => (
+const LoginButton = ({ title, onClickLoginButton }: LoginButtonProps) => (
   <LoginButtonView
     title={title}
-    handleClickLoginButton={handleClickLoginButton}
+    onClickLoginButton={onClickLoginButton}
   />
 );
 

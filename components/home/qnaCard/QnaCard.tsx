@@ -16,9 +16,15 @@ const QnaCard = ({ qna }: QnaCardProps) => {
   };
 
   const handleClickAnswerButton = () => {
-    // router.push(`/${qna.id}`);
+    if (qna.state === 'new') {
+      // router.push(`/${qna.id}`);
+    }
   };
-  const handleClickRejectButton = () => {};
+  const handleClickRejectButton = () => {
+    if (qna.state === 'new') {
+      // do something
+    }
+  };
 
   return (
     <QnaCardView

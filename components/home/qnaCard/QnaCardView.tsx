@@ -7,8 +7,8 @@ import QnaFooter from './QnaFooter';
 interface QnaCardViewProps {
   qna: TQna;
   onClickQnaCard: () => void;
-  onClickAnswerButton: () => void;
-  onClickRejectButton: () => void;
+  onClickAnswerButton?: () => void;
+  onClickRejectButton?: () => void;
 }
 
 const QnaCardView = ({
@@ -31,13 +31,13 @@ const QnaCardView = ({
         }}
         isQuestion
       />
-      {qna.answer ? (
+      {qna.state === 'answered' ? (
         <PostTemplate
           postInfo={{
-            profileImage: qna.answer.profileImage,
-            userName: qna.answer.userName,
-            content: qna.answer.content,
-            date: qna.answer.date,
+            profileImage: qna.answer!.profileImage,
+            userName: qna.answer!.userName,
+            content: qna.answer!.content,
+            date: qna.answer!.date,
           }}
           isQuestion={false}
           containerStyles="w-auto bg-neutral-100 rounded-bl-xl rounded-br-xl border-t border-neutral-300"

@@ -23,13 +23,11 @@ const PostTemplate = ({
   // const router = useRouter();
 
   const handleClickDMButton: React.MouseEventHandler = (e) => {
-    console.log('DM button clicked');
     e.stopPropagation();
   };
   const handleClickProfile: React.MouseEventHandler = (e) => {
     if (postInfo.userName) {
       // router.push(`/${postInfo.userName}`);
-      console.log('user profile clicked');
     }
 
     e.stopPropagation();

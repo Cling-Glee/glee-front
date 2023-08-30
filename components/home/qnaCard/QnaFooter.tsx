@@ -11,19 +11,17 @@ const QnaFooter = ({ reactions }: QnaFooterProps) => {
   const handleClickSpreadButton = () => {
     setIsEmojiSpread((state) => !state);
   };
-  const handleClickReaction: React.MouseEventHandler = (e) => {
-    console.log(`${e.currentTarget.id} emoji clicked`);
+  const handleClickReaction: React.MouseEventHandler = () => {
+    // 각각의 reaction button의 id를 reaction name으로 설정하고,
+    // e.currentTarget.id 을 통해 접근하여 요청을 진행
     setIsEmojiSpread(false);
   };
 
   const handleClickPinButton = () => {
-    console.log('pin button clicked');
   };
   const handleClickShareButton = () => {
-    console.log('share button clicked');
   };
   const handleClickMoreButton = () => {
-    console.log('more button clicked');
   };
 
   return (

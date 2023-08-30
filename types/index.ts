@@ -1,5 +1,14 @@
-export interface TQna {
+export interface TReactions {
+  like: number;
+  thumb: number;
+  check: number;
+  smile: number;
+  sad: number;
+}
+
+export interface TQna extends TReactions {
   id: number;
+  state: 'rejected' | 'new' | 'answered'
   profileImage: string | null;
   userName: string | null;
   date: Date;
@@ -11,17 +20,4 @@ export interface TQna {
     date: Date;
     content: string;
   } | null;
-  like: number;
-  thumb: number;
-  check: number;
-  smile: number;
-  sad: number;
-}
-
-export interface TReactions {
-  like: number;
-  thumb: number;
-  check: number;
-  smile: number;
-  sad: number;
 }
