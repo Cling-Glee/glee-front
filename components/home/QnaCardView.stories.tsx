@@ -24,7 +24,7 @@ const answeredQNA: TQna = {
     userName: '구마유시',
     date: new Date('2023/8/29 21:00:00'),
     content:
-      '나는 무엇인지 그리워 이 많은 별빛이 내린 언덕 위에 내 이름자를 써보고 흙으로 덮어 버리었읍니다.나는 무엇인지 그리워 이 많은 별빛이 내린 언덕 위에 내 이름자를 써보고 흙으로 덮어 ',
+      '나는 무엇인지 그리워 이 많은 별빛이 내린 언덕 위에 내 이름자를 써보고 흙으로 덮어 버리었읍니다.나는 무엇인지 그리워 이 많은 별빛이 내린 언덕 위에 내 이름자를 써보고 흙으로 덮어 버리었습니다.',
   },
   like: 4,
   thumb: 6,
@@ -60,14 +60,11 @@ export const QnaCardStory1: TStory = {
     onClickQnaCard: () => {
       if (answeredQNA.answer) console.log('qnacard clicked');
     },
-    onClickPinButton: () => {
-      console.log('pinButton clicked');
+    onClickAnswerButton: () => {
+      console.log('answer button clicked');
     },
-    onClickShareButton: () => {
-      console.log('shareButton clicked');
-    },
-    onClickMoreButton: () => {
-      console.log('moreButton clicked');
+    onClickRejectButton: () => {
+      console.log('reject button clicked');
     },
   },
 };
@@ -84,14 +81,11 @@ export const QnaCardStory2: TStory = {
     onClickQnaCard: () => {
       if (QNA.answer) console.log('qnacard clicked');
     },
-    onClickPinButton: () => {
-      console.log('pinButton clicked');
+    onClickAnswerButton: () => {
+      console.log('answer button clicked');
     },
-    onClickShareButton: () => {
-      console.log('shareButton clicked');
-    },
-    onClickMoreButton: () => {
-      console.log('moreButton clicked');
+    onClickRejectButton: () => {
+      console.log('reject button clicked');
     },
   },
 };

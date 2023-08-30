@@ -17,3 +17,11 @@ export interface TQna {
   smile: number;
   sad: number;
 }
+
+export interface TReactions {
+  like: number;
+  thumb: number;
+  check: number;
+  smile: number;
+  sad: number;
+}

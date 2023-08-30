@@ -1,21 +1,20 @@
 import Image from 'next/image';
 
 interface PostTemplateViewProps {
-  profileImage: string | null;
-  userName: string | null;
-  content: string;
-  date: string;
+  postInfo: {
+    profileImage: string | null;
+    userName: string | null;
+    content: string;
+    date: string;
+  };
   isQuestion: boolean;
-  onClickDMButton: React.MouseEventHandler;
-  onClickProfile: React.MouseEventHandler;
+  onClickDMButton?: React.MouseEventHandler;
+  onClickProfile?: React.MouseEventHandler;
   containerStyles?: string;
 }
 
 const PostTemplateView = ({
-  profileImage,
-  userName,
-  content,
-  date,
+  postInfo,
   isQuestion,
   onClickDMButton,
   onClickProfile,
@@ -25,19 +24,19 @@ const PostTemplateView = ({
     <div className="flex items-center mb-2">
       <div
         className={`flex mr-auto items-center ${
-          userName ? 'cursor-pointer' : ''
+          postInfo.userName ? 'cursor-pointer' : ''
         }`}
         onClick={onClickProfile}
       >
         <Image
-          src={profileImage || '/profile-icon.png'}
+          src={postInfo.profileImage || '/profile-icon.svg'}
           alt="profile image"
           width={32}
           height={32}
-          className="rounded-full"
+          className="rounded-full mr-2"
         />
-        <span className="h-fit text-xs font-semibold">
-          {userName || '익명의 위스퍼'}
+        <span className="h-fit text-xs font-semibold mr-2">
+          {postInfo.userName || '익명의 위스퍼'}
         </span>
         {isQuestion && (
           <button className="" onClick={onClickDMButton}>
@@ -51,10 +50,12 @@ const PostTemplateView = ({
         )}
       </div>
 
-      <span className="text-neutral-500 text-xs font-normal">{date}</span>
+      <span className="text-neutral-500 text-xs font-normal">
+        {postInfo.date}
+      </span>
     </div>
     <div className="text-black text-[13px] font-normal leading-[17.14px]">
-      {content}
+      {postInfo.content}
     </div>
   </div>
 );
