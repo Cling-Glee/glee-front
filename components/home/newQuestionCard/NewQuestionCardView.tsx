@@ -7,12 +7,14 @@ interface NewQuestionCardViewProps {
   qna: TQna;
   onClickAcceptButton:()=> void;
   onClickRejectButton: () => void;
+  onClickAnswerButton: () => void;
 }
 
 const NewQuestionCardView = ({
   qna,
   onClickAcceptButton,
   onClickRejectButton,
+  onClickAnswerButton,
 }: NewQuestionCardViewProps) => (
   <div className="rounded-xl border border-neutral-300 flex flex-col mb-3">
     <PostTemplate
@@ -26,7 +28,12 @@ const NewQuestionCardView = ({
       isDMButtonNeeded={qna.state === 'accepted'}
       isAnswer={false}
     />
-    <div className="flex mt-[23.5px]">
+    {qna.state === 'accepted' ? (
+      <button onClick={onClickAnswerButton} className="mt-[20.5px] m-3 pl-3 h-[38px] bg-zinc-100 rounded-md text-neutral-500 text-xs font-light text-left">
+        답변을 보내주세요
+      </button>
+    ) : (
+      <div className="flex mt-[23.5px]">
         <button
           className="w-1/2 h-[42px] bg-zinc-100 rounded-bl-xl text-xs font-semibold"
           onClick={onClickRejectButton}
@@ -40,6 +47,7 @@ const NewQuestionCardView = ({
           답변하기
         </button>
       </div>
+    )}
   </div>
 );
 
