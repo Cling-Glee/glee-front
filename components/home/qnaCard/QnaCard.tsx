@@ -15,15 +15,10 @@ const QnaCard = ({ qna }: QnaCardProps) => {
     // if (qna.answer) router.push(`/${qna.id}`);
   };
 
-  const handleClickDMButton = (e: React.MouseEvent) => {
-    e.stopPropagation();
-  };
-
   return (
     <QnaCardView
       qna={qna}
       onClickQnaCard={handleClickQnaCard}
-      onClickDMButton={handleClickDMButton}
     />
   );
 };

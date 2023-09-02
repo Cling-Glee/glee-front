@@ -6,21 +6,20 @@ import PostTemplateView from '@/components/home/PostTemplateView';
 
 interface PostTemplateProps {
   postInfo: {
+    id?: number;
     profileImage: string | null;
     userName: string | null;
     content: string;
     date: Date;
   };
-  isQuestion: boolean;
-  containerStyles?: string;
-  onClickDMButton?: (e: React.MouseEvent) => void;
+  isDMButtonNeeded: boolean;
+  isAnswer: boolean;
 }
 
 const PostTemplate = ({
   postInfo,
-  isQuestion,
-  containerStyles,
-  onClickDMButton,
+  isDMButtonNeeded,
+  isAnswer,
 }: PostTemplateProps) => {
   // const router = useRouter();
 
@@ -32,13 +31,21 @@ const PostTemplate = ({
     e.stopPropagation();
   };
 
+  const handleClickDMButton = (e: React.MouseEvent) => {
+    if (postInfo.id) {
+      // do something
+    }
+
+    e.stopPropagation();
+  };
+
   return (
     <PostTemplateView
       postInfo={postInfo}
-      isQuestion={isQuestion}
-      onClickDMButton={onClickDMButton}
+      isDMButtonNeeded={isDMButtonNeeded}
+      isAnswer={isAnswer}
+      onClickDMButton={handleClickDMButton}
       onClickProfile={handleClickProfile}
-      containerStyles={containerStyles}
     />
   );
 };

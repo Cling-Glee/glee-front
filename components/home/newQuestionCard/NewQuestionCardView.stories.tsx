@@ -14,7 +14,7 @@ type TStory = StoryObj<typeof NewQuestionCardView>;
 
 const answeredQNA: TQna = {
   id: 1,
-  state: 'answered',
+  state: 'accepted',
   profileImage: '',
   userName: null,
   date: new Date('2023/8/24'),

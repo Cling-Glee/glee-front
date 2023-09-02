@@ -6,12 +6,13 @@ interface NewQuestionCardProps {
 }
 
 const NewQuestionCard = ({ qna }: NewQuestionCardProps) => {
-  const handleClickAnswerButton = () => {};
+  const handleClickAcceptButton = () => {};
   const handleClickRejectButton = () => {};
+
   return (
     <NewQuestionCardView
       qna={qna}
-      onClickAnswerButton={handleClickAnswerButton}
+      onClickAcceptButton={handleClickAcceptButton}
       onClickRejectButton={handleClickRejectButton}
     />
   );
