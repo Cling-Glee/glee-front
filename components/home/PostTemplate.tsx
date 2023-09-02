@@ -1,8 +1,8 @@
 'use client';
 
+import PostTemplateView from '@/components/home/PostTemplateView';
+
 // import { useRouter } from 'next/navigation';
-import { convertDate } from '@/utils';
-import PostTemplateView from './PostTemplateView';
 
 interface PostTemplateProps {
   postInfo: {
@@ -13,19 +13,18 @@ interface PostTemplateProps {
   };
   isQuestion: boolean;
   containerStyles?: string;
+  onClickDMButton?: (e: React.MouseEvent) => void;
 }
 
 const PostTemplate = ({
   postInfo,
   isQuestion,
   containerStyles,
+  onClickDMButton,
 }: PostTemplateProps) => {
   // const router = useRouter();
 
-  const handleClickDMButton: React.MouseEventHandler = (e) => {
-    e.stopPropagation();
-  };
-  const handleClickProfile: React.MouseEventHandler = (e) => {
+  const handleClickProfile = (e: React.MouseEvent) => {
     if (postInfo.userName) {
       // router.push(`/${postInfo.userName}`);
     }
@@ -35,9 +34,9 @@ const PostTemplate = ({
 
   return (
     <PostTemplateView
-      postInfo={{ ...postInfo, date: convertDate(postInfo.date) }}
+      postInfo={postInfo}
       isQuestion={isQuestion}
-      onClickDMButton={handleClickDMButton}
+      onClickDMButton={onClickDMButton}
       onClickProfile={handleClickProfile}
       containerStyles={containerStyles}
     />

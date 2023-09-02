@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/prefer-default-export
-export const convertDate = (postedDate: Date) => {
+export const convertDateToFormattedDate = (postedDate: Date) => {
   let converted = '';
   const diff = new Date().getTime() - postedDate.getTime();
   const sec = 1000;

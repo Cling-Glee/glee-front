@@ -5,7 +5,7 @@ interface QnaFoterViewProps {
   reactions: TReactions;
   isEmojiSpread: boolean;
   onClickSpreadButton: () => void;
-  onClickReaction: React.MouseEventHandler;
+  onClickReaction: () => void;
   onClickPinButton: () => void;
   onClickShareButton: () => void;
   onClickMoreButton: () => void;

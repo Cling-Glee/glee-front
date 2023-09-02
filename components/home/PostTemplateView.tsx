@@ -1,15 +1,16 @@
 import Image from 'next/image';
+import { convertDateToFormattedDate } from '@/utils';
 
 interface PostTemplateViewProps {
   postInfo: {
     profileImage: string | null;
     userName: string | null;
     content: string;
-    date: string;
+    date: Date;
   };
   isQuestion: boolean;
-  onClickDMButton?: React.MouseEventHandler;
-  onClickProfile?: React.MouseEventHandler;
+  onClickDMButton?: (e: React.MouseEvent) => void;
+  onClickProfile?: (e: React.MouseEvent) => void;
   containerStyles?: string;
 }
 
@@ -51,7 +52,7 @@ const PostTemplateView = ({
       </div>
 
       <span className="text-neutral-500 text-xs font-normal">
-        {postInfo.date}
+        {convertDateToFormattedDate(postInfo.date)}
       </span>
     </div>
     <div className="text-black text-[13px] font-normal leading-[17.14px]">

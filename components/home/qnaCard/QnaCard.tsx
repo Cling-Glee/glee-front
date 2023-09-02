@@ -2,7 +2,7 @@
 
 // import { useRouter } from 'next/navigation';
 import { TQna } from '@/types';
-import QnaCardView from './QnaCardView';
+import QnaCardView from '@/components/home/qnaCard/QnaCardView';
 
 export interface QnaCardProps {
   qna: TQna;
@@ -15,23 +15,15 @@ const QnaCard = ({ qna }: QnaCardProps) => {
     // if (qna.answer) router.push(`/${qna.id}`);
   };
 
-  const handleClickAnswerButton = () => {
-    if (qna.state === 'new') {
-      // router.push(`/${qna.id}`);
-    }
-  };
-  const handleClickRejectButton = () => {
-    if (qna.state === 'new') {
-      // do something
-    }
+  const handleClickDMButton = (e: React.MouseEvent) => {
+    e.stopPropagation();
   };
 
   return (
     <QnaCardView
       qna={qna}
       onClickQnaCard={handleClickQnaCard}
-      onClickAnswerButton={handleClickAnswerButton}
-      onClickRejectButton={handleClickRejectButton}
+      onClickDMButton={handleClickDMButton}
     />
   );
 };
