@@ -9,15 +9,18 @@ interface TabProps {
 }
 
 const Tab = ({ newQuestionCount, answeredQuestionCount }: TabProps) => {
-  const [isNewQuestionTabActive, setIsNewQuestionTabActive] =
-    useState<boolean>(true);
+  const [selectedTabId, setSelectedTabId] = useState<string>('newQuestion');
+
+  const handleClickTab = (tabId: string) => {
+    setSelectedTabId(tabId);
+  };
 
   return (
     <TabView
       newQuestionCount={newQuestionCount}
       answeredQuestionCount={answeredQuestionCount}
-      isNewQuestionTabActive={isNewQuestionTabActive}
-      setIsNewQuestionTabActive={setIsNewQuestionTabActive}
+      selectedTabId={selectedTabId}
+      onClickTab={handleClickTab}
     />
   );
 };

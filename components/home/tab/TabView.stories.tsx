@@ -11,11 +11,16 @@ type TStory = StoryObj<typeof TabView>;
 
 export const TabStory: TStory = {
   name: 'Tab',
-  argTypes: {},
+  argTypes: {
+    selectedTabId: {
+      control: 'radio',
+      options: ['newQuestion', 'answeredQuestion'],
+    },
+  },
   args: {
     newQuestionCount: 3,
     answeredQuestionCount: 5,
-    isNewQuestionTabActive: true,
-    setIsNewQuestionTabActive: undefined,
+    selectedTabId: 'newQuestion',
+    onClickTab: undefined,
   },
 };

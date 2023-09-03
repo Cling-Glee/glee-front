@@ -1,19 +1,17 @@
 'use client';
 
-import { Dispatch, SetStateAction } from 'react';
-
 interface TabViewProps {
   newQuestionCount: number;
   answeredQuestionCount: number;
-  isNewQuestionTabActive: boolean;
-  setIsNewQuestionTabActive: Dispatch<SetStateAction<boolean>>;
+  selectedTabId: string;
+  onClickTab: (tabId: string) => void;
 }
 
 const TabView = ({
   newQuestionCount,
   answeredQuestionCount,
-  isNewQuestionTabActive,
-  setIsNewQuestionTabActive,
+  selectedTabId,
+  onClickTab,
 }: TabViewProps) => {
   const activeTabStyle = 'text-black text-sm border-b-2 border-black';
   const inActiveTabStyle = 'text-stone-400 text-sm';
@@ -22,17 +20,19 @@ const TabView = ({
     <div className="w-full h-11 flex justify-around">
       <button
         className={`w-full ${
-          isNewQuestionTabActive ? activeTabStyle : inActiveTabStyle
+          selectedTabId === 'newQuestion' ? activeTabStyle : inActiveTabStyle
         }`}
-        onClick={() => setIsNewQuestionTabActive(true)}
+        onClick={() => onClickTab('newQuestion')}
       >
         새 질문 {newQuestionCount}
       </button>
       <button
         className={`w-full ${
-          !isNewQuestionTabActive ? activeTabStyle : inActiveTabStyle
+          selectedTabId === 'answeredQuestion'
+            ? activeTabStyle
+            : inActiveTabStyle
         }`}
-        onClick={() => setIsNewQuestionTabActive(false)}
+        onClick={() => onClickTab('answeredQuestion')}
       >
         답변완료 {answeredQuestionCount}
       </button>
