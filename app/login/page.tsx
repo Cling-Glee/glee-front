@@ -26,7 +26,7 @@ const Login = () => {
       //       }
     }
   }, [params]);
-
+  
   const handleClickKakaoLoginButton = () => {
     const key = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
     const redirectUri = process.env.NEXT_PUBLIC_SOCIAL_LOGIN_REDIRECT_URI;
@@ -37,7 +37,13 @@ const Login = () => {
 
   const handleClickTwitterLoginButton = () => {};
 
-  const handleClickInstagramLoginButton = () => {};
+  const handleClickInstagramLoginButton = () => {
+    const key = process.env.NEXT_PUBLIC_INSTAGRAM_API_KEY;
+    const redirectUri = process.env.NEXT_PUBLIC_SOCIAL_LOGIN_REDIRECT_URI;
+    const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${key}&redirect_uri=${redirectUri}&scope=user_profile&response_type=code`;
+
+    window.location.href = authUrl;
+  };
 
   return (
     <div className="flex flex-col items-center">
