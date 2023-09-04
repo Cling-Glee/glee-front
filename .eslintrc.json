@@ -1,6 +1,24 @@
 {
-  "extends": ["next/core-web-vitals", "airbnb-base", "airbnb-typescript/base"],
+  "extends": [
+    "next/core-web-vitals",
+    "airbnb-base",
+    "airbnb-typescript/base",
+    "plugin:storybook/recommended",
+    "prettier"
+  ],
   "parserOptions": {
-       "project": "./tsconfig.json"
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.stories.*",
+          "**/.storybook/**/*.*"
+        ],
+        "peerDependencies": true
+      }
+    ]
   }
 }
