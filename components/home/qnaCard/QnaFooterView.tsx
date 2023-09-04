@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import { TReactions } from '@/types';
 
 interface QnaFoterViewProps {
-  reactions: TReactions;
+  clickedReactions: { [key: string]: number };
+  unClickedReactions: { [key: string]: number };
   isEmojiSpread: boolean;
   onClickSpreadButton: () => void;
   onClickReaction: () => void;
@@ -12,7 +12,8 @@ interface QnaFoterViewProps {
 }
 
 const QnaFooterView = ({
-  reactions,
+  clickedReactions,
+  unClickedReactions,
   isEmojiSpread,
   onClickSpreadButton,
   onClickReaction,
@@ -22,10 +23,12 @@ const QnaFooterView = ({
 }: QnaFoterViewProps) => (
   <div className="flex mt-2">
     <div className="flex ml-4">
-      {Object.entries(reactions).map(
+      {Object.entries(clickedReactions).map(
         ([key, value]) => value > 0 && (
             <button
-              className="flex items-center mx-0.5"
+              className={`transition-all duration-500 flex items-center mx-0.5 ${
+                isEmojiSpread ? 'bg-zinc-100 rounded-md' : ''
+              }`}
               key={key}
               id={key}
               onClick={onClickReaction}
@@ -37,25 +40,73 @@ const QnaFooterView = ({
                 height={20}
                 className="mr-0.5"
               />
-              <p className="text-[12px]">{value}</p>
+              <p className="text-[12px] pr-1">{value}</p>
             </button>
         ),
       )}
     </div>
     <div
-      className={`flex transition-all overflow-clip bg-neutral-100 rounded-lg ${
-        isEmojiSpread ? 'w-[120px]' : 'w-0'
+      className={`h-[27px] flex transition-all duration-500 overflow-clip ${
+        isEmojiSpread || Object.keys(clickedReactions).length === 0
+          ? 'max-w-[140px]'
+          : 'max-w-0'
       }`}
     >
-      {Object.keys(reactions).map((key) => (
-        <button className="mx-0.5" key={key} id={key} onClick={onClickReaction}>
-          <Image src={`/${key}-icon.svg`} alt="" width={20} height={20} />
+      {Object.keys(unClickedReactions).map((key) => (
+        <button
+          key={key}
+          className={`min-w-[24px] ${
+            Object.keys(clickedReactions).length > 0 ? 'bg-zinc-100' : ''
+          } rounded-md mx-[2px] flex items-center`}
+          id={key}
+          onClick={onClickReaction}
+        >
+          <Image
+            className="w-full"
+            src={`/${key}-icon.svg`}
+            alt=""
+            width={20}
+            height={20}
+          />
         </button>
       ))}
     </div>
-    <button className="" onClick={onClickSpreadButton}>
-      <Image src="/spread-reaction-icon.svg" alt="" width={20} height={20} />
-    </button>
+    {Object.keys(clickedReactions).length > 0 && (
+      <button
+        className="transition-all delay-700"
+        onClick={onClickSpreadButton}
+      >
+        {isEmojiSpread ? (
+          <svg
+            width="16"
+            height="17"
+            viewBox="0 0 16 17"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="8" cy="8" r="6" fill="#D9D9D9" />
+            <path
+              d="M9.85742 6.91016V7.83594H6.14258V6.91016H9.85742Z"
+              fill="black"
+            />
+          </svg>
+        ) : (
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="6" cy="6" r="6" fill="#D9D9D9" />
+            <path
+              d="M5.51953 8.42578V6.15234H3.25781V5.20312H5.51953V2.94141H6.46875V5.20312H8.74219V6.15234H6.46875V8.42578H5.51953Z"
+              fill="black"
+            />
+          </svg>
+        )}
+      </button>
+    )}
     <div className="ml-auto mr-2">
       <button className="" onClick={onClickPinButton}>
         <Image src="/pin-icon.svg" alt="" width={20} height={20} />

@@ -9,13 +9,14 @@ const NewQuestionCard = ({ qna }: NewQuestionCardProps) => {
   const handleClickAcceptButton = () => {};
   const handleClickRejectButton = () => {};
   const handleClickAnswerButton = () => {};
-
+  const handleClickMoreButton = () => {};
   return (
     <NewQuestionCardView
       qna={qna}
       onClickAcceptButton={handleClickAcceptButton}
       onClickRejectButton={handleClickRejectButton}
       onClickAnswerButton={handleClickAnswerButton}
+      onClickMoreButton={handleClickMoreButton}
     />
   );
 };

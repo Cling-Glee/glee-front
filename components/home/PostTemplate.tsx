@@ -12,12 +12,14 @@ interface PostTemplateProps {
     content: string;
     date: Date;
   };
-  isDMButtonNeeded: boolean;
-  isAnswer: boolean;
+  isDMButtonNeeded?: boolean;
+  isAnswer?: boolean;
+  onClickMoreButton?: () => void;
 }
 
 const PostTemplate = ({
   postInfo,
+  onClickMoreButton,
   isDMButtonNeeded,
   isAnswer,
 }: PostTemplateProps) => {
@@ -46,6 +48,7 @@ const PostTemplate = ({
       isAnswer={isAnswer}
       onClickDMButton={handleClickDMButton}
       onClickProfile={handleClickProfile}
+      onClickMoreButton={onClickMoreButton}
     />
   );
 };

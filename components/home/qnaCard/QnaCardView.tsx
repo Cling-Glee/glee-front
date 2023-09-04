@@ -9,10 +9,7 @@ interface QnaCardViewProps {
   onClickQnaCard: () => void;
 }
 
-const QnaCardView = ({
-  qna,
-  onClickQnaCard,
-}: QnaCardViewProps) => (
+const QnaCardView = ({ qna, onClickQnaCard }: QnaCardViewProps) => (
   <div className="">
     <div
       className="rounded-xl border border-neutral-300 flex flex-col mb-3"
@@ -27,7 +24,6 @@ const QnaCardView = ({
           date: qna.date,
         }}
         isDMButtonNeeded
-        isAnswer={false}
       />
       <PostTemplate
         postInfo={{
@@ -36,7 +32,6 @@ const QnaCardView = ({
           content: qna.answer!.content,
           date: qna.answer!.date,
         }}
-        isDMButtonNeeded={false}
         isAnswer
       />
     </div>

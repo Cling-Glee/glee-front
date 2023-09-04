@@ -37,7 +37,7 @@ const answeredQNA: TQna = {
 };
 
 export const QnaCardStory1: TStory = {
-  name: 'QnaCard1',
+  name: 'QnaCard',
   parameters: {
     nextjs: {
       appDirectory: true,

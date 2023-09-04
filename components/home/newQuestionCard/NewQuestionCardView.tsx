@@ -5,9 +5,10 @@ import { TQna } from '@/types';
 
 interface NewQuestionCardViewProps {
   qna: TQna;
-  onClickAcceptButton:()=> void;
+  onClickAcceptButton: () => void;
   onClickRejectButton: () => void;
   onClickAnswerButton: () => void;
+  onClickMoreButton: () => void;
 }
 
 const NewQuestionCardView = ({
@@ -15,6 +16,7 @@ const NewQuestionCardView = ({
   onClickAcceptButton,
   onClickRejectButton,
   onClickAnswerButton,
+  onClickMoreButton,
 }: NewQuestionCardViewProps) => (
   <div className="rounded-xl border border-neutral-300 flex flex-col mb-3">
     <PostTemplate
@@ -26,10 +28,13 @@ const NewQuestionCardView = ({
         date: qna.date,
       }}
       isDMButtonNeeded={qna.state === 'accepted'}
-      isAnswer={false}
+      onClickMoreButton={onClickMoreButton}
     />
     {qna.state === 'accepted' ? (
-      <button onClick={onClickAnswerButton} className="mt-[20.5px] m-3 pl-3 h-[38px] bg-zinc-100 rounded-md text-neutral-500 text-xs font-light text-left">
+      <button
+        onClick={onClickAnswerButton}
+        className="mt-[20.5px] m-3 pl-3 h-[38px] bg-zinc-100 rounded-md text-neutral-500 text-xs font-light text-left"
+      >
         답변을 보내주세요
       </button>
     ) : (
