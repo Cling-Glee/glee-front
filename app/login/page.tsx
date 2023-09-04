@@ -35,7 +35,12 @@ const Login = () => {
     window.location.href = authUrl;
   };
 
-  const handleClickTwitterLoginButton = () => {};
+  const handleClickTwitterLoginButton = () => {
+    const key = process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID;
+    const redirectUri = process.env.NEXT_PUBLIC_SOCIAL_LOGIN_REDIRECT_URI;
+    const authUrl = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${key}&redirect_uri=${redirectUri}&scope=tweet.read%20users.read%20offline.access&state=state&code_challenge=challenge&code_challenge_method=plain`;
+    window.location.href = authUrl;
+  };
 
   const handleClickInstagramLoginButton = () => {
     const key = process.env.NEXT_PUBLIC_INSTAGRAM_API_KEY;
