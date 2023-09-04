@@ -19,6 +19,6 @@ export const LoginButtonStory: TStory = {
   },
   args: {
     title: '카카오',
-    handleClickLoginButton: undefined,
+    onClickLoginButton: undefined,
   },
 };

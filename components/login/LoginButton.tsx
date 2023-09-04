@@ -1,17 +1,14 @@
 'use client';
 
-import LoginButtonView from './LoginButtonView';
+import LoginButtonView from '@/components/login/LoginButtonView';
 
 interface LoginButtonProps {
   title: string;
-  handleClickLoginButton: () => void;
+  onClickLoginButton: () => void;
 }
 
-const LoginButton = ({ title, handleClickLoginButton }: LoginButtonProps) => (
-  <LoginButtonView
-    title={title}
-    handleClickLoginButton={handleClickLoginButton}
-  />
+const LoginButton = ({ title, onClickLoginButton }: LoginButtonProps) => (
+  <LoginButtonView title={title} onClickLoginButton={onClickLoginButton} />
 );
 
 export default LoginButton;

@@ -56,15 +56,15 @@ const Login = () => {
       <div className="flex flex-col">
         <LoginButton
           title="카카오"
-          handleClickLoginButton={handleClickKakaoLoginButton}
+          onClickLoginButton={handleClickKakaoLoginButton}
         />
         <LoginButton
           title="트위터"
-          handleClickLoginButton={handleClickTwitterLoginButton}
+          onClickLoginButton={handleClickTwitterLoginButton}
         />
         <LoginButton
           title="인스타그램"
-          handleClickLoginButton={handleClickInstagramLoginButton}
+          onClickLoginButton={handleClickInstagramLoginButton}
         />
       </div>
       <div className="">비로그인으로 시작</div>

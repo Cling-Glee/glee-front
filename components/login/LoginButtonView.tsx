@@ -2,14 +2,14 @@
 
 interface LoginButtonViewProps {
   title: string;
-  handleClickLoginButton: () => void;
+  onClickLoginButton: () => void;
 }
 
 const LoginButtonView = ({
   title,
-  handleClickLoginButton,
+  onClickLoginButton,
 }: LoginButtonViewProps) => (
-  <button className="" onClick={handleClickLoginButton}>
+  <button className="" onClick={onClickLoginButton}>
     {title} 로그인
   </button>
 );
