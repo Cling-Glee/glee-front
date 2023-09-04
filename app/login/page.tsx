@@ -26,8 +26,14 @@ const Login = () => {
       //       }
     }
   }, [params]);
+  
+  const handleClickKakaoLoginButton = () => {
+    const key = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
+    const redirectUri = process.env.NEXT_PUBLIC_SOCIAL_LOGIN_REDIRECT_URI;
+    const authUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${key}&\nredirect_uri=${redirectUri}&response_type=code`;
 
-  const handleClickKakaoLoginButton = () => {};
+    window.location.href = authUrl;
+  };
 
   const handleClickTwitterLoginButton = () => {};
 
