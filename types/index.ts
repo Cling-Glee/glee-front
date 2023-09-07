@@ -26,3 +26,11 @@ export interface TQna {
   };
   reactions?: TReactions;
 }
+
+export interface TAuthInfo {
+  id: number | null;
+  nickname: 'string' | null;
+  email: 'string' | null;
+  accessToken: 'string' | null;
+  refreshToken: 'string' | null;
+}
