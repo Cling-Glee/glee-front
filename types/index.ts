@@ -28,9 +28,11 @@ export interface TQna {
 }
 
 export interface TAuthInfo {
+  isAuthorized: boolean;
   id: number | null;
-  nickname: 'string' | null;
-  email: 'string' | null;
-  accessToken: 'string' | null;
-  refreshToken: 'string' | null;
+  nickName: string | null;
+  email: string | null;
+  accessToken: string | null;
+  refreshToken: string | null;
+  isJoinCompleted: boolean | null;
 }

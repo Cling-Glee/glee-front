@@ -1,6 +1,8 @@
 'use client';
 
 import LoginButton from '@/components/login/LoginButton';
+import { useAuth } from '@/hooks/auth';
+import { useAuthStore } from '@/stores/authStore';
 
 const Login = () => {
   const handleClickKakaoLoginButton = () => {
@@ -29,9 +31,19 @@ const Login = () => {
     window.location.href = authUrl;
   };
 
+  const { logout } = useAuth();
+  const accessToken = useAuthStore((state) => state.authInfo.accessToken);
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-col">
+        {/* 로그아웃 테스트 */}
+        <button
+          onClick={() => {
+            logout('kakao', accessToken as string);
+          }}
+        >
+          logout
+        </button>
         <LoginButton
           title="카카오"
           onClickLoginButton={handleClickKakaoLoginButton}

@@ -1,34 +1,30 @@
-import { redirect } from 'next/navigation';
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useAuth } from '@/hooks/auth';
 
 interface RedirectURIPageProps {
   params: { provider: string };
   searchParams: { [key: string]: string | undefined };
 }
 
-const loginRequestFn = async (provider: string, code: string) => {
-  const res = await fetch(
-    `${process.env.SERVER_BASE_URL}/v1/login/${provider}?code=${code}`,
-    { cache: 'no-store' },
-  );
+const RedirectPage = ({ params, searchParams }: RedirectURIPageProps) => {
+  const router = useRouter();
+  if (!searchParams || !searchParams.code) router.push('/login');
 
-  if (res.ok) return res.json();
-  return {
-    id: 2,
-    nickname: '오대균',
-    email: 'obj0202@nate.com',
-    accessToken:
-      'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjk0MDY3MDkyLCJleHAiOjE2OTQwNjczOTJ9.vpe7wsiTI56b_OV8eE-t0GstisWmsj0M0iY_Q4KC3Jc',
-    refreshToken:
-      'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjk0MDY3MDkyLCJleHAiOjE2OTUyNzY2OTJ9.pDacGNwWd95lrcgWx5EWuQKJo4DyGTXbIITJ6OeHZfY',
-  };
+  const { login } = useAuth();
+
+  useEffect(() => {
+    (async () => {
+      const result = await login(params.provider, searchParams.code as string);
+      // 임시로 라우팅 구현, 추후에 이전페이지, 혹은 특정 페이지로 이동하도록 수정해야 함
+      if (result) router.push('/login');
+      else router.push('/');
+    })();
+  });
+
+  return <>loading</>;
 };
 
-const page = async ({ params, searchParams }: RedirectURIPageProps) => {
-  if (!searchParams || !searchParams.code) redirect('/login');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const res = await loginRequestFn(params.provider, searchParams.code);
-
-  redirect('/');
-};
-
-export default page;
+export default RedirectPage;
