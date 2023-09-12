@@ -10,6 +10,7 @@ interface TUseAuth {
 
 const initialState: TAuthInfo = {
   isAuthorized: false,
+  isLoading: false,
   id: null,
   nickName: null,
   email: null,
@@ -23,9 +24,7 @@ export const useAuthStore = create(
     authInfo: initialState,
     setAuthInfo: (payload) =>
       set((state) => ({
-        authInfo: payload
-          ? { ...state.authInfo, ...payload, isAuthorized: true }
-          : initialState,
+        authInfo: payload ? { ...state.authInfo, ...payload } : initialState,
       })),
   })),
 );

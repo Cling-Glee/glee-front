@@ -7,6 +7,7 @@ export const useAuth = () => {
   const setAuthInfo = useAuthStore((state) => state.setAuthInfo);
 
   const login = async (provider: string, code: string) => {
+    setAuthInfo({ isLoading: true });
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/v1/login/${provider}?code=${code}`,
       { cache: 'no-store' },
@@ -15,13 +16,15 @@ export const useAuth = () => {
     if (res.ok) {
       const result: TAuthInfo = await res.json();
       localStorage.setItem('refreshToken', result.refreshToken as string);
-      setAuthInfo(result);
+      setAuthInfo({ ...result, isAuthorized: true, isLoading: false });
       return result;
     }
+    setAuthInfo(null);
     return false;
   };
 
   const refresh = async (token: string) => {
+    setAuthInfo({ isLoading: true });
     const headers = new Headers();
     headers.set('Authorization', `Bearer ${token}`);
     const res = await fetch(
@@ -31,8 +34,8 @@ export const useAuth = () => {
     if (res.ok) {
       const result: TAuthInfo = await res.json();
       localStorage.setItem('refreshToken', result.refreshToken as string);
-      setAuthInfo(result);
-      return res.json();
+      setAuthInfo({ ...result, isAuthorized: true, isLoading: false });
+      return result;
     }
     localStorage.removeItem('refreshToken');
     setAuthInfo(null);
@@ -40,6 +43,7 @@ export const useAuth = () => {
   };
 
   const logout = async (provider: string, token: string) => {
+    setAuthInfo({ isLoading: true });
     const headers = new Headers();
     headers.set('Authorization', `bearer ${token}`);
     const res = await fetch(
@@ -52,6 +56,7 @@ export const useAuth = () => {
       setAuthInfo(null);
       return true;
     }
+    setAuthInfo({ isLoading: false });
     return false;
   };
 

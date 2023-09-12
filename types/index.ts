@@ -28,6 +28,7 @@ export interface TQna {
 }
 
 export interface TAuthInfo {
+  isLoading: boolean;
   isAuthorized: boolean;
   id: number | null;
   nickName: string | null;
