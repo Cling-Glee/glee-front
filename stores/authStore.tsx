@@ -1,30 +1,49 @@
 /* eslint-disable import/prefer-default-export */
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { TAuthInfo } from '@/types';
+import { TAuth, TUser } from '@/types';
 
-interface TUseAuth {
-  authInfo: TAuthInfo;
-  setAuthInfo: (TAuthInfo: Partial<TAuthInfo> | null) => void;
+interface TUseAuthStore {
+  auth: TAuth;
+  setAuth: (auth: Partial<TAuth> | null) => void;
 }
 
-const initialState: TAuthInfo = {
+interface TUseUserStore {
+  user: TUser;
+  setUser: (user: Partial<TUser> | null) => void;
+}
+
+const initialAuthState: TAuth = {
   isAuthorized: false,
   isLoading: false,
+
+  accessToken: null,
+  refreshToken: null,
+};
+
+const initialUserState: TUser = {
   id: null,
   nickName: null,
   email: null,
-  accessToken: null,
-  refreshToken: null,
   isJoinCompleted: null,
 };
 
 export const useAuthStore = create(
-  devtools<TUseAuth>((set) => ({
-    authInfo: initialState,
-    setAuthInfo: (payload) =>
+  devtools<TUseAuthStore>((set) => ({
+    auth: initialAuthState,
+    setAuth: (payload) =>
       set((state) => ({
-        authInfo: payload ? { ...state.authInfo, ...payload } : initialState,
+        auth: payload ? { ...state.auth, ...payload } : initialAuthState,
+      })),
+  })),
+);
+
+export const useUserStore = create(
+  devtools<TUseUserStore>((set) => ({
+    user: initialUserState,
+    setUser: (payload) =>
+      set((state) => ({
+        user: payload ? { ...state.user, ...payload } : initialUserState,
       })),
   })),
 );

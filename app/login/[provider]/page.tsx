@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useAuth } from '@/hooks/auth';
+import { useAuth } from '@/hooks/useAuth';
 
 interface RedirectURIPageProps {
   params: { provider: string };
@@ -11,9 +11,9 @@ interface RedirectURIPageProps {
 
 const RedirectPage = ({ params, searchParams }: RedirectURIPageProps) => {
   const router = useRouter();
-  if (!searchParams || !searchParams.code) router.push('/login');
-
   const { login } = useAuth();
+
+  if (!searchParams || !searchParams.code) router.push('/login');
 
   useEffect(() => {
     (async () => {

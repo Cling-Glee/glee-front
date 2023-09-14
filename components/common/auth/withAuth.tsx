@@ -6,20 +6,19 @@ import { useAuthStore } from '@/stores/authStore';
 
 export interface WithAuthProps {} // 추후에 인증 과정에 더 필요한 props를 위해
 
-export default function withAuth<T extends WithAuthProps = WithAuthProps>(
+const withAuth = <T extends WithAuthProps = WithAuthProps>(
   Component: React.ComponentType<T>,
-) {
+) => {
   const ComponentWithAuth = (props: Omit<T, keyof WithAuthProps>) => {
-    const isAuthorized = useAuthStore((state) => state.authInfo.isAuthorized);
-    const isLoading = useAuthStore((state) => state.authInfo.isLoading);
+    const isAuthorized = useAuthStore((state) => state.auth.isAuthorized);
+    const isLoading = useAuthStore((state) => state.auth.isLoading);
     const router = useRouter();
 
     useEffect(() => {
-      // 가장 초기 상태에는 undefined이므로, 해당 경우를 고려 해주어야 함
-      if (isLoading !== undefined && !isLoading && !isAuthorized) {
-        router.push('/login');
+      if (!isLoading && !isAuthorized) {
+        router.push('/');
       }
-    });
+    }, [isAuthorized, isLoading, router]);
 
     return !isLoading && isAuthorized ? (
       <Component {...(props as T)} />
@@ -29,4 +28,6 @@ export default function withAuth<T extends WithAuthProps = WithAuthProps>(
   };
 
   return ComponentWithAuth;
-}
+};
+
+export default withAuth;

@@ -3,10 +3,10 @@
 import { useEffect } from 'react';
 
 import { useAuthStore } from '@/stores/authStore';
-import { useAuth } from '@/hooks/auth';
+import { useAuth } from '@/hooks/useAuth';
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const isAuthorized = useAuthStore((state) => state.authInfo.isAuthorized);
+  const isAuthorized = useAuthStore((state) => state.auth.isAuthorized);
 
   const { refresh } = useAuth();
 
@@ -20,7 +20,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (!isAuthorized && refreshToken) refresh(refreshToken as string);
   }, [isAuthorized, refresh]);
 
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 export default AuthProvider;

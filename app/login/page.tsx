@@ -1,7 +1,7 @@
 'use client';
 
 import LoginButton from '@/components/login/LoginButton';
-import { useAuth } from '@/hooks/auth';
+import { useAuth } from '@/hooks/useAuth';
 import { useAuthStore } from '@/stores/authStore';
 
 const Login = () => {
@@ -32,7 +32,7 @@ const Login = () => {
   };
 
   const { logout } = useAuth();
-  const accessToken = useAuthStore((state) => state.authInfo.accessToken);
+  const accessToken = useAuthStore((state) => state.auth.accessToken);
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-col">

@@ -1,30 +1,49 @@
 /* eslint-disable import/prefer-default-export */
 
-import { useAuthStore } from '@/stores/authStore';
-import { TAuthInfo } from '@/types';
+import { useRouter } from 'next/navigation';
+import { useAuthStore, useUserStore } from '@/stores/authStore';
+import { TAuth, TUser } from '@/types';
+
+type TAuthResponse = Omit<TAuth, 'isLoading' | 'isAuthorized'> & TUser;
 
 export const useAuth = () => {
-  const setAuthInfo = useAuthStore((state) => state.setAuthInfo);
+  const setAuth = useAuthStore((state) => state.setAuth);
+  const setUser = useUserStore((state) => state.setUser);
+  const router = useRouter();
 
   const login = async (provider: string, code: string) => {
-    setAuthInfo({ isLoading: true });
+    setAuth({ isLoading: true });
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/v1/login/${provider}?code=${code}`,
       { cache: 'no-store' },
     );
 
     if (res.ok) {
-      const result: TAuthInfo = await res.json();
+      const result: TAuthResponse = await res.json();
       localStorage.setItem('refreshToken', result.refreshToken as string);
-      setAuthInfo({ ...result, isAuthorized: true, isLoading: false });
+      setAuth({
+        isAuthorized: true,
+        isLoading: false,
+        accessToken: result.accessToken,
+        refreshToken: result.refreshToken,
+      });
+      setUser({
+        id: result.id,
+        nickName: result.nickName,
+        email: result.email,
+        isJoinCompleted: result.isJoinCompleted,
+      });
+      // setAuth({ ...result, isAuthorized: true, isLoading: false });
       return result;
     }
-    setAuthInfo(null);
-    return false;
+    setAuth(null);
+    setUser(null);
+
+    return null;
   };
 
   const refresh = async (token: string) => {
-    setAuthInfo({ isLoading: true });
+    setAuth({ isLoading: true });
     const headers = new Headers();
     headers.set('Authorization', `Bearer ${token}`);
     const res = await fetch(
@@ -32,18 +51,31 @@ export const useAuth = () => {
       { cache: 'no-store', headers },
     );
     if (res.ok) {
-      const result: TAuthInfo = await res.json();
+      const result: TAuthResponse = await res.json();
       localStorage.setItem('refreshToken', result.refreshToken as string);
-      setAuthInfo({ ...result, isAuthorized: true, isLoading: false });
+      setAuth({
+        isAuthorized: true,
+        isLoading: false,
+        accessToken: result.accessToken,
+        refreshToken: result.refreshToken,
+      });
+      setUser({
+        id: result.id,
+        nickName: result.nickName,
+        email: result.email,
+        isJoinCompleted: result.isJoinCompleted,
+      });
       return result;
     }
     localStorage.removeItem('refreshToken');
-    setAuthInfo(null);
-    return false;
+    setAuth(null);
+    setUser(null);
+
+    return null;
   };
 
   const logout = async (provider: string, token: string) => {
-    setAuthInfo({ isLoading: true });
+    setAuth({ isLoading: true });
     const headers = new Headers();
     headers.set('Authorization', `bearer ${token}`);
     const res = await fetch(
@@ -53,10 +85,11 @@ export const useAuth = () => {
 
     if (res.ok) {
       localStorage.removeItem('refreshToken');
-      setAuthInfo(null);
+      setAuth(null);
+      setUser(null);
       return true;
     }
-    setAuthInfo({ isLoading: false });
+    setAuth({ isLoading: false });
     return false;
   };
 
@@ -67,8 +100,9 @@ export const useAuth = () => {
     payload?: any,
   ) => {
     const headers = new Headers();
-    headers.append('Authorization', `Bearer ${token}`);
+    const refreshToken = localStorage.getItem('refreshToken');
 
+    headers.append('Authorization', `Bearer ${token}`);
     // 원하는 api 요청
     const initialRes = await fetch(url, {
       method,
@@ -78,12 +112,11 @@ export const useAuth = () => {
     });
 
     // 인증 정보 만료시
-    const refreshToken = localStorage.getItem('refreshToken');
     if (initialRes.status === 401 && refreshToken) {
-      const newAuthInfo = await refresh(refreshToken); // refresh 요청
+      const refreshRes: TAuthResponse | null = await refresh(refreshToken); // refresh 요청
       // refresh 성공시 이전에 시도한 api 재요청
-      if (newAuthInfo && newAuthInfo.accessToken) {
-        headers.set('Authorization', `Bearer ${newAuthInfo.accessToken}`);
+      if (refreshRes && refreshRes.accessToken) {
+        headers.set('Authorization', `Bearer ${refreshRes.accessToken}`);
         const retryRes = await fetch(url, {
           method,
           body: payload,
@@ -93,7 +126,8 @@ export const useAuth = () => {
         return retryRes;
       }
 
-      return false; // refresh 실패
+      router.push('/login');
+      return new Error('authorization failed'); // refresh 실패
     }
 
     return initialRes;
