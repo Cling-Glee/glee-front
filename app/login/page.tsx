@@ -1,35 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import LoginButton from '@/components/login/LoginButton';
+import { useAuth } from '@/hooks/useAuth';
+import { useAuthStore } from '@/stores/authStore';
 
 const Login = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const params = useSearchParams();
-
-  useEffect(() => {
-    const code = params.get('code');
-    if (code) {
-      // server에 code 전달
-      //       const sendCode = async () => {
-      //         await fetch('https://server.com', {
-      //           method: 'POST',
-      //           body: code,
-      //         });
-      //       };
-      //       try {
-      //         sendCode();
-      setIsLoading(false);
-      //       } catch (error) {
-      //         console.log(error);
-      //       }
-    }
-  }, [params]);
-  
   const handleClickKakaoLoginButton = () => {
     const key = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
-    const redirectUri = process.env.NEXT_PUBLIC_SOCIAL_LOGIN_REDIRECT_URI;
+    const redirectUri =
+      process.env.NEXT_PUBLIC_SOCIAL_LOGIN_REDIRECT_URI!.concat('/kakao');
     const authUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${key}&\nredirect_uri=${redirectUri}&response_type=code`;
 
     window.location.href = authUrl;
@@ -37,23 +16,34 @@ const Login = () => {
 
   const handleClickTwitterLoginButton = () => {
     const key = process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID;
-    const redirectUri = process.env.NEXT_PUBLIC_SOCIAL_LOGIN_REDIRECT_URI;
+    const redirectUri =
+      process.env.NEXT_PUBLIC_SOCIAL_LOGIN_REDIRECT_URI!.concat('/twitter');
     const authUrl = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${key}&redirect_uri=${redirectUri}&scope=tweet.read%20users.read%20offline.access&state=state&code_challenge=challenge&code_challenge_method=plain`;
     window.location.href = authUrl;
   };
 
   const handleClickInstagramLoginButton = () => {
     const key = process.env.NEXT_PUBLIC_INSTAGRAM_API_KEY;
-    const redirectUri = process.env.NEXT_PUBLIC_SOCIAL_LOGIN_REDIRECT_URI;
+    const redirectUri =
+      process.env.NEXT_PUBLIC_SOCIAL_LOGIN_REDIRECT_URI!.concat('/instagram');
     const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${key}&redirect_uri=${redirectUri}&scope=user_profile&response_type=code`;
 
     window.location.href = authUrl;
   };
 
+  const { logout } = useAuth();
+  const accessToken = useAuthStore((state) => state.auth.accessToken);
   return (
     <div className="flex flex-col items-center">
-      {isLoading && <div className="">loading</div>}
       <div className="flex flex-col">
+        {/* 로그아웃 테스트 */}
+        <button
+          onClick={() => {
+            logout('kakao', accessToken as string);
+          }}
+        >
+          logout
+        </button>
         <LoginButton
           title="카카오"
           onClickLoginButton={handleClickKakaoLoginButton}

@@ -26,3 +26,17 @@ export interface TQna {
   };
   reactions?: TReactions;
 }
+
+export interface TAuth {
+  isLoading: boolean;
+  isAuthorized: boolean;
+  accessToken: string | null;
+  refreshToken: string | null;
+}
+
+export interface TUser {
+  id: number | null;
+  nickName: string | null;
+  email: string | null;
+  isJoinCompleted: boolean | null;
+}
