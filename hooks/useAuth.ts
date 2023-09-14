@@ -95,34 +95,28 @@ export const useAuth = () => {
 
   const authFetch = async (
     url: string,
-    method: 'GET' | 'POST' | 'DELETE' | 'PATCH',
     token: string,
-    payload?: any,
+    options?: RequestInit,
   ) => {
-    const headers = new Headers();
+    const newOptions: RequestInit = options || {};
+
+    newOptions.headers = (options?.headers as Headers) || new Headers();
     const refreshToken = localStorage.getItem('refreshToken');
 
-    headers.append('Authorization', `Bearer ${token}`);
+    newOptions.headers.set('Authorization', `Bearer ${token}`);
     // 원하는 api 요청
-    const initialRes = await fetch(url, {
-      method,
-      body: payload,
-      cache: 'no-store',
-      headers,
-    });
+    const initialRes = await fetch(url, options);
 
     // 인증 정보 만료시
     if (initialRes.status === 401 && refreshToken) {
       const refreshRes: TAuthResponse | null = await refresh(refreshToken); // refresh 요청
       // refresh 성공시 이전에 시도한 api 재요청
       if (refreshRes && refreshRes.accessToken) {
-        headers.set('Authorization', `Bearer ${refreshRes.accessToken}`);
-        const retryRes = await fetch(url, {
-          method,
-          body: payload,
-          cache: 'no-store',
-          headers,
-        });
+        newOptions.headers.set(
+          'Authorization',
+          `Bearer ${refreshRes.accessToken}`,
+        );
+        const retryRes = await fetch(url, options);
         return retryRes;
       }
 
